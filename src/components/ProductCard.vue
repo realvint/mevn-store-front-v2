@@ -4,7 +4,8 @@
     <hr/>
     <img :src="imageUrl" alt="фотокарточка"/>
     <div class="card_footer">
-      <button>Купить</button>
+      <button class="btn btn-info" @click="$emit('add-to-cart')" v-if="!inCart">Добавить</button>
+      <button class="btn btn-danger" @click="$emit('add-to-cart')" v-else>Удалить</button>
     </div>
 
   </div>
@@ -26,6 +27,10 @@ export default {
       type: String,
       default: '',
     },
+    inCart: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>

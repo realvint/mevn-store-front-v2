@@ -7,6 +7,8 @@
           :title="product.title"
           :price="product.price"
           :image-url="product.imageUrl"
+          @add-to-cart="addToCart(product)"
+          :in-cart="cartItemsIds.includes(product._id)"
       />
     </div>
   </div>
@@ -14,7 +16,7 @@
 
 <script>
 
-import {mapGetters, mapActions} from 'vuex'
+import {mapGetters, mapActions, mapMutations} from 'vuex'
 
 
 export default {
@@ -27,12 +29,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      products: 'products'
-    })
+      products: 'products',
+      cartItems: 'cartItems'
+    }),
+    cartItemsIds: ({ cartItems }) => cartItems.map(({ _id }) => _id)
   },
   methods: {
     ...mapActions({
       fetchProducts: 'fetchProducts',
+    }),
+    ...mapMutations({
+      addToCart: 'addToCart'
     })
   }
 }

@@ -1,26 +1,33 @@
 <template>
   <div id="app">
-    <MevnHeader :categories="categories" />
+    <MevnHeader :categories="categories" :cartCount="cartCount"/>
     <router-view/>
   </div>
 </template>
 
 <script>
 
+import{ mapActions, mapGetters} from 'vuex'
+
 export default {
   name: 'App',
   components: {
     MevnHeader: () => import('@/components/layouts/Header'),
   },
-  data: () => ({
-    categories:[
-        {title: 'чехлы', id: 1},
-        {title: 'стёкла', id: 2},
-        {title: 'ремонт', id: 3},
-        {title: 'зарядки', id: 4},
-        {title: 'контакты', id: 5},
-    ]
-  })
+  mounted() {
+    this.fetchCategories()
+  },
+  methods: {
+    ...mapActions({
+      fetchCategories: 'fetchCategories'
+    })
+  },
+  computed: {
+    ...mapGetters({
+      categories: 'categories',
+      cartCount: 'cartCount'
+    })
+  }
 }
 
 </script>
@@ -30,7 +37,9 @@ export default {
 body,
 html {
   padding: 0;
-  margin: 0;}
+  margin: 0;
+
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

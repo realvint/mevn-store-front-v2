@@ -2,6 +2,9 @@
   <header class="header">
     <div class="header_left">logo хер</div>
     <div class="header_right">
+      <router-link to="/cart">
+        Cart {{ cartCount }}
+      </router-link>
       <ul class="nav">
         <li
             class="nav_link"
@@ -25,6 +28,10 @@
       categories: {
         type: Array,
         default: () => [],
+      },
+      cartCount: {
+        type: Number,
+        default: 0
       }
     }
   }
