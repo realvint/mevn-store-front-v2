@@ -4,8 +4,8 @@
     <hr/>
     <img :src="imageUrl" alt="фотокарточка"/>
     <div class="card_footer">
-      <button class="btn btn-info" @click="$emit('add-to-cart')" v-if="!inCart">Добавить</button>
-      <button class="btn btn-danger" @click="$emit('add-to-cart')" v-else>Удалить</button>
+      <button class="btn btn-info" @click="$emit('add-to-cart')" v-if="!inCart">Купить</button>
+      <button class="btn btn-danger" @click="$emit('add-to-cart')" v-else>Продать</button>
     </div>
 
   </div>
@@ -38,7 +38,7 @@ export default {
 <style lang="scss" scoped>
   .card {
     width: 150px;
-    height: 150px;
+    height: 180px;
     padding: 10px;
     margin: 10px;
     border: 1px solid black;
@@ -48,7 +48,7 @@ export default {
       width: 100%;
     }
     &_footer {
-      margin-top: 20px;
+      margin-top: 10px;
     }
   }
 </style>

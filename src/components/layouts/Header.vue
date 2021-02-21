@@ -1,9 +1,13 @@
 <template>
   <header class="header">
-    <div class="header_left">logo хер</div>
+    <div class="header_left">
+      <router-link to="/">
+        Интернет-магазинъ
+      </router-link>
+    </div>
     <div class="header_right">
       <router-link to="/cart">
-        Cart {{ cartCount }}
+        Карзинка {{ cartCount }}
       </router-link>
       <ul class="nav">
         <li

@@ -1,3 +1,4 @@
+import { getPaymentIntent } from "@/services/payment.service";
 import { sum } from 'ramda'
 
 const mutations = {
@@ -10,15 +11,31 @@ const mutations = {
     else {
       state.cartItems.push(product)
     }
+  },
+  setPaymentError(state, error) {
+    state.paymentError = error
+  },
+  clearCart(state) {
+    state.cartItems = []
   }
 }
-const actions = {}
+const actions = {
+  async handleBuy({ getters, commit }) {
+    try {
+      const intent = await getPaymentIntent({ amount: getters.cartTotalPrice })
+      return intent
+      } catch (err) {
+        commit('setPaymentError', err)
+    }
+  }
+}
 
 const getters = {
   cartTotalPrice: ({ cartItems }) => sum(cartItems.map(item => item.price)),
   cartCount: ({ cartItems }) => cartItems.length,
   cart: ({ cart }) => cart,
-  cartItems: ({ cartItems }) => cartItems
+  cartItems: ({ cartItems }) => cartItems,
+  paymentError: ({ paymentError }) => paymentError
 }
 
 const state = () => ({
@@ -26,7 +43,8 @@ const state = () => ({
   cart: {
     total:0
   },
-  cartItems: []
+  cartItems: [],
+  paymentError: null
 })
 
 export default {
